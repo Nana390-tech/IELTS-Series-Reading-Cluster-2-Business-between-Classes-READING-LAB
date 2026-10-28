@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Lab · Vocab List 6</title>
+<style>
+:root{
+  --violet:#3A2E6E; --violet-d:#271E4D; --sea:#7FD1C7; --sea-l:#E6F6F3;
+  --ink:#1D1A2B; --muted:#5F5B73; --line:#DDDAE8; --bg:#F6F5FA;
+  --good:#1E7A4F; --bad:#B3261E; --mark:#FFE58A;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ar:"Segoe UI",Tahoma,"Geeza Pro",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.5;display:flex;flex-direction:column}
+button,select,input{font:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--sea);outline-offset:2px}
+header{background:var(--violet);color:#fff;padding:12px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+header h1{margin:0;font-family:var(--serif);font-size:23px}
+header .sp{flex:1}
+.wallet{background:#fff;color:var(--violet);border-radius:10px;padding:5px 14px;font-weight:700;display:flex;gap:8px;align-items:center}
+.note{display:inline-block;width:36px;height:21px;border-radius:3px;background:var(--sea);border:2px solid var(--violet);position:relative}
+.note::after{content:"";position:absolute;inset:5px 12px;border-radius:50%;border:2px solid var(--violet)}
+.split{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0}
+@media(max-width:860px){.split{grid-template-columns:1fr}.pane{max-height:none!important}}
+.pane{overflow:auto;padding:22px 24px 40px;max-height:calc(100vh - 62px)}
+.text{background:#fff;border-right:2px solid var(--line)}
+.text h2{font-family:var(--serif);font-size:28px;margin:0 0 4px;color:var(--violet-d)}
+.text .by{color:var(--muted);font-size:15px;margin:0 0 18px}
+.para{display:grid;grid-template-columns:34px 1fr;gap:6px;margin-bottom:16px;font-family:var(--serif);font-size:19px;line-height:1.65;max-width:68ch}
+.para b{font-family:var(--sans);color:var(--violet);font-size:20px}
+.para.flash{background:var(--sea-l);border-radius:8px}
+mark{background:var(--mark);padding:1px 2px;border-radius:3px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tabs button{border:2px solid var(--violet);background:#fff;color:var(--violet);border-radius:999px;padding:6px 15px;font-weight:600;font-size:16px}
+.tabs button[aria-current="true"]{background:var(--violet);color:#fff}
+.tabs .done::after{content:" ✓"}
+h3{font-family:var(--serif);font-size:25px;margin:0 0 6px;color:var(--violet-d)}
+.how{background:var(--sea-l);border-radius:12px;padding:14px 16px;margin:0 0 18px;font-size:17px}
+.how b{color:var(--violet-d)}
+.hlist{background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:17px}
+.hlist div{padding:3px 0}
+.hlist span{display:inline-block;width:42px;font-weight:700;color:var(--violet)}
+.q{background:#fff;border:2px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.q.ok{border-color:var(--good)} .q.no{border-color:var(--bad)}
+.q .top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.q .lbl{font-weight:700;min-width:115px}
+select{border:2px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff;min-width:110px;font-size:18px}
+.hintb{background:none;border:0;color:var(--violet);text-decoration:underline;font-size:16px}
+.small{font-size:16px;color:var(--muted);margin-top:6px}
+.fb{margin-top:10px;font-size:17px;display:none}
+.fb.show{display:block}
+.tf{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tf button{border:2px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;font-weight:700;font-size:16px}
+.tf button.sel{border-color:var(--violet);background:var(--violet);color:#fff}
+.tf button.right{border-color:var(--good);background:#E3F4EA;color:var(--good)}
+.tf button.wrong{border-color:var(--bad);background:#FBE9E7;color:var(--bad)}
+.stmt{font-weight:600;font-size:19px}
+.box{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.box button{border:2px dashed var(--violet);background:#fff;color:var(--violet);border-radius:8px;padding:6px 12px;font-weight:600}
+.box button.used{opacity:.35}
+.summary{background:#fff;border:2px solid var(--line);border-radius:12px;padding:18px;font-family:var(--serif);font-size:20px;line-height:2.1}
+.slot{display:inline-flex;align-items:center;gap:4px;min-width:130px;border:0;border-bottom:3px solid var(--violet);background:var(--sea-l);border-radius:6px 6px 0 0;padding:0 10px;font-family:var(--sans);font-size:18px;font-weight:600;color:var(--violet-d);line-height:1.6}
+.slot.active{background:var(--sea)}
+.slot.ok{border-color:var(--good);background:#E3F4EA}
+.slot.no{border-color:var(--bad);background:#FBE9E7}
+.slot small{color:var(--muted);font-weight:700}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.btn{background:var(--violet);color:#fff;border:0;border-radius:12px;padding:11px 20px;font-weight:700;font-size:17px}
+.btn.ghost{background:#fff;color:var(--violet);border:2px solid var(--violet)}
+.score{font-weight:700;color:var(--violet-d)}
+.big{font-family:var(--serif);font-size:60px;color:var(--violet-d);line-height:1;margin:6px 0}
+.cert{margin:20px 0;border:6px double var(--violet);border-radius:10px;padding:24px;background:repeating-linear-gradient(-45deg,#fff 0 12px,#F2F8F7 12px 24px);position:relative}
+.cert h4{font-family:var(--serif);font-size:28px;margin:0 0 6px;color:var(--violet-d)}
+.cert .who{font-family:var(--serif);font-size:32px;border-bottom:2px solid var(--violet);display:inline-block;padding:0 10px;margin:6px 0}
+.cert .seal{position:absolute;right:20px;top:20px;width:82px;height:82px;border-radius:50%;background:var(--sea);border:3px solid var(--violet);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;color:var(--violet-d);font-size:14px;line-height:1.1}
+input[type=text]{border:2px solid var(--line);border-radius:10px;padding:9px 12px;width:min(340px,100%)}
+table.br{border-collapse:collapse;margin:10px 0;font-size:17px}
+table.br td{padding:5px 14px 5px 0}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;display:none;z-index:9}
+.toast.show{display:block}
+footer{color:var(--muted);font-size:14px;margin-top:30px}
+canvas#cf{position:fixed;inset:0;pointer-events:none;z-index:8}
+@media print{header,.text,.tabs,.row,.noprint,footer{display:none!important}.split{display:block}.pane{max-height:none;overflow:visible}body{background:#fff;display:block}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Reading Lab</h1><span>Vocab List 6 · A Business Between Classes</span>
+  <span class="sp"></span>
+  <div class="wallet" aria-live="polite"><span class="note" aria-hidden="true"></span><span id="notes">0</span>&nbsp;class notes</div>
+</header>
+<div class="split">
+  <article class="pane text" id="textPane" aria-label="Reading passage"></article>
+  <section class="pane" id="qPane">
+    <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+    <div id="view"></div>
+    <footer>Designed by: Nazila Motahari &nbsp;|&nbsp; Higher Colleges of Technology &nbsp;|&nbsp; B1+ Vocabulary List 6 (Fall) — Commerce</footer>
+  </section>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<canvas id="cf"></canvas>
+<script>
+const D={"title": "A Business Between Classes", "paras": [["A", "At eleven o'clock at night, when most of her classmates are asleep, Mariam Al Mazrouei is still awake. The 20-year-old education student is sitting on her bedroom floor, mixing oud, rose and amber oils into small glass bottles. Two years ago, she made a couple of bottles as gifts for her friends' birthdays. Today, she has more than 300 customers across the UAE. \"Honestly, I never planned to be a businesswoman,\" she says. \"I just wanted my friends to smell nice.\""], ["B", "The business runs almost completely through an Instagram account. Customers send a request by direct message, and Mariam replies with the price and a delivery date. Before she starts any order, the customer must pay a deposit of half the price. When the money arrives, she sends a message to confirm the order. Every bottle carries a gold label with the name of her brand, and every box includes a small card with her signature. Mariam's mother is in charge of packing, while her younger sister has the role of social media assistant."], ["C", "Finding good materials took longer than Mariam expected. Her oud comes from an old family trader in the Abu Dhabi souq, who has been in the perfume trade for forty years. Her rose oil, however, comes from France. Because she cannot travel to buy it herself, she uses a small agency in Dubai that buys oils from French farms for small businesses in the Gulf. She must transfer the money to the agency's account in euros, so when the exchange rate changes, her costs change too. \"In one month, my rose oil became fifteen percent more expensive,\" she says."], ["D", "The most painful lessons were about money. In her first year, Mariam allowed friends to buy on credit and pay later. By the end of the semester, several of them owed her more than 2,000 dirhams in total, and some became rude when she asked for the money. To buy more oils, she had to take a loan of 3,000 dirhams from her father. \"I paid back every dirham,\" she says, \"but I made a new rule: no deposit, no perfume. Friends are friends, but business is business.\""], ["E", "Running a business while studying was not always easy. In her second year, Mariam's grades fell, and she nearly failed one of her teaching practice courses. Her family held a meeting and voted to close the business during exam weeks. Mariam was unhappy at first, but she now agrees it was the right decision. \"My studies are my duty to my family and to myself,\" she explains. \"The business can wait two weeks. My future pupils cannot.\""], ["F", "Dr Hessa Al Suwaidi, who teaches business at a university in Dubai, has studied young Emirati women who run small businesses. Last year, she presented her research at a conference in Abu Dhabi. She believes these students learn skills that are hard to teach in a classroom: how to answer customers politely, how to plan their money and how to solve problems quickly. \"Even students who never want a business career benefit,\" she says. \"Employers want graduates who can take responsibility, and a small business teaches exactly that.\""], ["G", "However, experts who support student businesses say they need careful planning. Students should open a separate bank account for the business, so that their own money and the business's money do not mix. They should also find out whether they need a licence, because selling from home without one can cause problems. Others warn that a business should never become more important than a degree. Mariam, who will graduate next year, has made a promise to herself. She will become a teacher first, and her perfume business will stay small, at least for now."]], "headings": {"options": [["i", "When business and study clashed"], ["ii", "Learning the hard way about trust and money"], ["iii", "An unexpected businesswoman"], ["iv", "Finding materials near and far"], ["v", "Why an expert sees value in student businesses"], ["vi", "How an order works"], ["vii", "Advice before you begin"], ["viii", "The history of perfume in the Gulf"], ["ix", "How her teachers reacted"], ["x", "Why most small businesses fail"]], "key": {"A": "iii", "B": "vi", "C": "iv", "D": "ii", "E": "i", "F": "v", "G": "vii"}, "why": {"A": "A gift for friends became a business with 300 customers. Mariam 'never planned to be a businesswoman', so it was unexpected.", "B": "The paragraph follows one order step by step: request, price, deposit, confirmation, label, packing.", "C": "Oud comes from the souq (near); rose oil comes from France (far). The whole paragraph is about getting materials.", "D": "Friends bought on credit and did not pay, so Mariam needed a loan. She learned about trust and money through a bad experience.", "E": "Her grades fell and her family voted to close the business during exams: business and study clashed.", "F": "Dr Hessa is the expert, and she explains WHY student businesses are valuable: skills employers want.", "G": "'Need careful planning', 'should open', 'should find out', 'warn': this is advice for students who want to start. Trap: Mariam's promise is only the last two sentences, not the main idea."}}, "tfng": [{"s": "Mariam first made perfume to give as presents.", "a": "TRUE", "ev": "she made a couple of bottles as gifts for her friends' birthdays", "p": "A", "why": "'Gifts' = 'presents'. The text says the same thing in other words."}, {"s": "Mariam's sister is in charge of packing the orders.", "a": "FALSE", "ev": "Mariam's mother is in charge of packing", "p": "B", "why": "Her MOTHER is in charge of packing. Her sister does social media. The text says something different, so it is FALSE."}, {"s": "All of the oils Mariam uses come from abroad.", "a": "FALSE", "ev": "Her oud comes from an old family trader in the Abu Dhabi souq", "p": "C", "why": "The oud comes from Abu Dhabi, so not ALL of her oils come from abroad. Watch words like 'all', 'only' and 'never'."}, {"s": "At the end of her first semester, some friends still had not paid Mariam.", "a": "TRUE", "ev": "several of them owed her more than 2,000 dirhams in total", "p": "D", "why": "If they 'owed' her money at the end of the semester, they had not paid yet."}, {"s": "Mariam's father asked her to pay back more than she borrowed.", "a": "NOT GIVEN", "ev": "", "p": "", "why": "We know she took a loan from her father and paid it back, but the text does not say whether he asked for anything extra."}, {"s": "Mariam's teachers told her to close the business during exam weeks.", "a": "NOT GIVEN", "ev": "", "p": "", "why": "Her FAMILY voted to close the business. The text says nothing about her teachers' advice, so we cannot know. Don't choose FALSE just because a different person is mentioned."}, {"s": "Dr Hessa believes running a small business teaches skills that employers want.", "a": "TRUE", "ev": "Employers want graduates who can take responsibility, and a small business teaches exactly that", "p": "F", "why": "Dr Hessa says employers want responsibility and a small business teaches it."}, {"s": "Mariam plans to run her business full-time after she graduates.", "a": "FALSE", "ev": "She will become a teacher first, and her perfume business will stay small", "p": "G", "why": "She will become a teacher first and keep the business small: the opposite of full-time."}], "summary": {"text": "Mariam sells her perfume through an Instagram [1]. Before she starts an order, each customer must pay a [2]. Every bottle has a gold [3] with the name of her brand. She buys her rose oil through an [4] in Dubai. In her first year, she let friends buy on [5], but some did not pay. Dr Hessa, who studies student businesses, presented her research at a [6] in Abu Dhabi.", "answers": [["account"], ["deposit"], ["label"], ["agency"], ["credit"], ["conference"]], "box": ["account", "deposit", "label", "agency", "credit", "conference", "branch", "loan", "market", "receipt", "trader", "wage"]}};
+const HINTS={
+ A:"Did Mariam plan to start a business? Read her words at the end.",
+ B:"Follow one customer from the first message to the packed box.",
+ C:"Where does the oud come from? Where does the rose oil come from?",
+ D:"What happened when friends bought on credit? Was it a good experience?",
+ E:"What happened to her grades, and what did her family decide?",
+ F:"Who is the expert here, and what does she think students gain?",
+ G:"Look at 'should' and 'warn'. Is Mariam's promise the main idea, or a detail at the end?"
+};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function fresh(){return{
+  h:{ans:{},hint:{},checked:false},
+  t:{order:shuffle(D.tfng.map((_,i)=>i)),ans:{},checked:false},
+  s:{ans:{},checked:false,active:0},
+  name:"",tab:"h",celebrated:false}}
+let S=fresh();
+
+function renderText(markEv,para){
+  $("#textPane").innerHTML=`<h2>${D.title}</h2><p class="by">Read the whole text first. Paragraph letters are on the left.</p>`+
+   D.paras.map(([k,t])=>{let h=esc(t);if(markEv&&para===k)h=h.replace(esc(markEv),`<mark>${esc(markEv)}</mark>`);
+     return `<div class="para${para===k?" flash":""}" id="p${k}"><b>${k}</b><div>${h}</div></div>`}).join("");
+  if(para){const el=$("#p"+para);el&&el.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}
+}
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),2400)}
+const norm=s=>String(s||"").trim().toLowerCase().replace(/\s+/g," ");
+function marks(){
+  const h=Object.keys(D.headings.key).filter(k=>S.h.checked&&S.h.ans[k]===D.headings.key[k]);
+  const t=D.tfng.filter((q,i)=>S.t.checked&&S.t.ans[i]===q.a);
+  const s=D.summary.answers.filter((a,i)=>S.s.checked&&a.map(norm).includes(norm(S.s.ans[i])));
+  return{h:h.length,t:t.length,s:s.length,total:h.length+t.length+s.length,
+    notes:h.reduce((n,k)=>n+(S.h.hint[k]?5:10),0)+t.length*10+s.length*10};
+}
+function tabs(){
+  const T=[["h","1 · Headings"],["t","2 · True / False / NG"],["s","3 · Summary"],["r","My result"]];
+  $("#tabs").innerHTML=T.map(([k,l])=>`<button data-k="${k}" aria-current="${S.tab===k}" class="${(k!=="r"&&S[k].checked)?"done":""}">${l}</button>`).join("");
+  $("#tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.tab=b.dataset.k;render()});
+  $("#notes").textContent=marks().notes;
+}
+function render(){tabs();const V=$("#view");
+ if(S.tab==="h"){
+  const keys=Object.keys(D.headings.key);
+  V.innerHTML=`<h3>Matching headings</h3>
+  <div class="how"><b>How:</b> read the whole paragraph and ask “what is it <i>mostly</i> about?” Do not choose a heading just because it shares a word with one sentence. There are three extra headings you will not use. A hint halves the notes for that paragraph.</div>
+  <div class="hlist">${D.headings.options.map(([n,t])=>`<div><span>${n}</span>${t}</div>`).join("")}</div>
+  ${keys.map(k=>{const ok=S.h.checked&&S.h.ans[k]===D.headings.key[k];return `<div class="q ${S.h.checked?(ok?"ok":"no"):""}">
+   <div class="top"><span class="lbl">Paragraph ${k}</span>
+   <select data-k="${k}" ${S.h.checked?"disabled":""} aria-label="Heading for paragraph ${k}"><option value="">choose</option>${D.headings.options.map(([n])=>`<option ${S.h.ans[k]===n?"selected":""}>${n}</option>`).join("")}</select>
+   ${S.h.checked?"":`<button class="hintb" data-hint="${k}">${S.h.hint[k]?"Hint shown":"Hint"}</button>`}
+   <button class="hintb" data-show="${k}">Show paragraph</button></div>
+   ${S.h.hint[k]&&!S.h.checked?`<div class="small">${HINTS[k]}</div>`:""}
+   ${S.h.checked?`<div class="fb show">${ok?"<b>Correct.</b> ":`<b>Answer: ${D.headings.key[k]}.</b> `}${D.headings.why[k]}</div>`:""}</div>`}).join("")}
+  <div class="row">${S.h.checked?`<span class="score">${marks().h} / 7 correct</span><button class="btn" id="nx">Go to True / False / Not Given</button>`:`<button class="btn" id="ck">Check my headings</button>`}</div>`;
+  V.querySelectorAll("select").forEach(s=>s.onchange=()=>{S.h.ans[s.dataset.k]=s.value});
+  V.querySelectorAll("[data-hint]").forEach(b=>b.onclick=()=>{S.h.hint[b.dataset.hint]=true;render()});
+  V.querySelectorAll("[data-show]").forEach(b=>b.onclick=()=>renderText(null,b.dataset.show));
+  if($("#ck"))$("#ck").onclick=()=>{const miss=keys.filter(k=>!S.h.ans[k]);if(miss.length){toast("Choose a heading for paragraph "+miss.join(", ")+".");return}
+    const used=Object.values(S.h.ans);if(new Set(used).size<used.length)toast("Note: you used one heading twice. Each heading fits only one paragraph.");
+    S.h.checked=true;render()};
+  if($("#nx"))$("#nx").onclick=()=>{S.tab="t";render()};
+ }
+ if(S.tab==="t"){
+  V.innerHTML=`<h3>True / False / Not Given</h3>
+  <div class="how"><b>TRUE</b> = the text says the same thing in other words. <b>FALSE</b> = the text says the opposite. <b>NOT GIVEN</b> = the text does not say. After you check, the evidence is highlighted in the text on the left.</div>
+  ${S.t.order.map((i,n)=>{const q=D.tfng[i],a=S.t.ans[i],ok=a===q.a;return `<div class="q ${S.t.checked?(ok?"ok":"no"):""}">
+   <div class="stmt">${n+1}. ${q.s}</div>
+   <div class="tf">${["TRUE","FALSE","NOT GIVEN"].map(o=>{let c=a===o?"sel":"";if(S.t.checked){c=o===q.a?"right":(a===o?"wrong":"")}return `<button data-i="${i}" data-o="${o}" class="${c}" ${S.t.checked?"disabled":""}>${o}</button>`}).join("")}</div>
+   ${S.t.checked?`<div class="fb show">${ok?"<b>Correct.</b> ":`<b>Answer: ${q.a}.</b> `}${q.why} ${q.p?`<button class="hintb" data-ev="${i}">Show the evidence in paragraph ${q.p}</button>`:""}</div>`:""}</div>`}).join("")}
+  <div class="row">${S.t.checked?`<span class="score">${marks().t} / 8 correct</span><button class="btn" id="nx">Go to the summary</button>`:`<button class="btn" id="ck">Check my answers</button>`}</div>`;
+  V.querySelectorAll(".tf button").forEach(b=>b.onclick=()=>{S.t.ans[b.dataset.i]=b.dataset.o;render()});
+  V.querySelectorAll("[data-ev]").forEach(b=>b.onclick=()=>{const q=D.tfng[b.dataset.ev];renderText(q.ev,q.p)});
+  if($("#ck"))$("#ck").onclick=()=>{const miss=D.tfng.filter((_,i)=>!S.t.ans[i]).length;if(miss){toast("Answer all 8 statements first ("+miss+" left).");return}S.t.checked=true;render()};
+  if($("#nx"))$("#nx").onclick=()=>{S.tab="s";render()};
+ }
+ if(S.tab==="s"){
+  const used=Object.values(S.s.ans);
+  let html=esc(D.summary.text);
+  D.summary.answers.forEach((a,i)=>{const v=S.s.ans[i],ok=S.s.checked&&a.map(norm).includes(norm(v));
+    html=html.replace(`[${i+1}]`,`<button class="slot ${S.s.checked?(ok?"ok":"no"):(S.s.active===i?"active":"")}" data-slot="${i}" ${S.s.checked?"disabled":""}><small>${i+1}</small> ${v?esc(v):"&nbsp;"}</button>${S.s.checked&&!ok?` <small style="font-family:var(--sans);color:var(--good);font-weight:700">(${a[0]})</small>`:""}`)});
+  V.innerHTML=`<h3>Summary completion</h3>
+  <div class="how"><b>How:</b> tap a gap, then tap a word from the box. Read the words around each gap: what kind of word fits (a noun? a person? money?) Then find the place in the text. Six words in the box are not used.</div>
+  <div class="box">${D.summary.box.slice().sort().map(w=>`<button data-w="${w}" class="${used.includes(w)?"used":""}" ${S.s.checked?"disabled":""}>${w}</button>`).join("")}</div>
+  <div class="summary">${html}</div>
+  <div class="row">${S.s.checked?`<span class="score">${marks().s} / 6 correct</span><button class="btn" id="nx">See my result</button>`:`<button class="btn ghost" id="clr">Clear the gaps</button><button class="btn" id="ck">Check my summary</button>`}</div>`;
+  V.querySelectorAll("[data-slot]").forEach(b=>b.onclick=()=>{S.s.active=+b.dataset.slot;render()});
+  V.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const w=b.dataset.w;for(const k in S.s.ans)if(S.s.ans[k]===w)delete S.s.ans[k];
+    S.s.ans[S.s.active]=w;for(let j=1;j<=6;j++){const n=(S.s.active+j)%6;if(!S.s.ans[n]){S.s.active=n;break}}render()});
+  if($("#clr"))$("#clr").onclick=()=>{S.s.ans={};S.s.active=0;render()};
+  if($("#ck"))$("#ck").onclick=()=>{if(Object.keys(S.s.ans).length<6){toast("Fill all six gaps first.");return}S.s.checked=true;render()};
+  if($("#nx"))$("#nx").onclick=()=>{S.tab="r";render()};
+ }
+ if(S.tab==="r"){
+  const m=marks(),all=S.h.checked&&S.t.checked&&S.s.checked,pass=all&&m.total>=17;
+  V.innerHTML=`<h3>My result</h3>
+  <p class="big">${m.total} / 21</p>
+  <table class="br"><tr><td>Matching headings</td><td><b>${S.h.checked?m.h+" / 7":"not checked yet"}</b></td></tr>
+  <tr><td>True / False / Not Given</td><td><b>${S.t.checked?m.t+" / 8":"not checked yet"}</b></td></tr>
+  <tr><td>Summary completion</td><td><b>${S.s.checked?m.s+" / 6":"not checked yet"}</b></td></tr></table>
+  <p>${!all?"Check all three sections to see if you earned the certificate.":pass?"Well done. You reached the goal of 17 / 21.":"The goal is 17 / 21. Go back to the section with the lowest score, read the feedback, and find the evidence in the text."}</p>
+  ${pass?`<div class="noprint"><label for="nm">Your name for the certificate</label><br><input type="text" id="nm" value="${esc(S.name)}" placeholder="Type your name"></div>
+  <div class="cert"><div class="seal">${m.notes}<br>notes</div><h4>Certificate of Achievement</h4><div>This certifies that</div><div class="who" id="who">${esc(S.name)||"Your name"}</div>
+  <div>completed the Reading Lab for <i>${D.title}</i> with a score of <b>${m.total} / 21</b>: matching headings, True / False / Not Given and summary completion.</div>
+  <div style="margin-top:16px;font-family:var(--serif);font-style:italic">Designed by: Nazila Motahari · Higher Colleges of Technology</div></div>`:""}
+  <div class="row">${pass?`<button class="btn" id="pr">Print / save certificate as PDF</button>`:""}
+   <button class="btn ghost" id="sv">Save my progress (.json)</button>
+   <label class="btn ghost">Load progress<input type="file" id="ld" accept=".json" hidden></label>
+   <button class="btn ghost" id="ag">Start again</button></div>`;
+  if($("#nm"))$("#nm").oninput=e=>{S.name=e.target.value;$("#who").textContent=S.name||"Your name"};
+  if($("#pr"))$("#pr").onclick=()=>window.print();
+  $("#sv").onclick=()=>{const b=new Blob([JSON.stringify({app:"reading-lab-list6",v:2,S})],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="reading-lab-progress.json";a.click();toast("Progress saved to your downloads.")};
+  $("#ld").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(d.app!=="reading-lab-list6")throw 0;S=d.S;toast("Progress loaded.");render()}catch(_){toast("That file is not a Reading Lab save file.")}};r.readAsText(f)};
+  $("#ag").onclick=()=>{const b=$("#ag");if(b.dataset.sure){S=fresh();renderText();render();return}b.dataset.sure="1";b.textContent="Tap again to clear everything"};
+  if(pass&&!S.celebrated){S.celebrated=true;confetti()}
+ }
+}
+function confetti(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const c=$("#cf"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const cols=["#3A2E6E","#7FD1C7","#FFE58A","#FFFFFF"];
+  const P=Array.from({length:120},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,vy:2+Math.random()*3,vx:-1+Math.random()*2,r:Math.random()*6,vr:-.1+Math.random()*.2,c:cols[Math.floor(Math.random()*4)]}));
+  let t=0;(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.strokeStyle="#271E4D";x.fillRect(-8,-4.5,16,9);x.strokeRect(-8,-4.5,16,9);x.restore()});if(++t<240)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})();
+}
+renderText();render();
+</script>
+</body>
+</html>
